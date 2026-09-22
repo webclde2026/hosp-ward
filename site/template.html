@@ -165,7 +165,7 @@
   }
   table.rates{width:100%; border-collapse:collapse; font-size:13px; min-width:1400px}
   table.rates thead th{
-    position:sticky; top:calc(env(safe-area-inset-top,0px) + 54px);
+    position:sticky; top:calc(env(safe-area-inset-top,0px) + var(--controls-h, 54px));
     background:var(--surface-2); text-align:left; font-weight:600; font-size:11px;
     text-transform:uppercase; letter-spacing:0.03em; color:var(--ink-muted);
     padding:10px 10px; border-bottom:1px solid var(--border); white-space:nowrap;
@@ -230,9 +230,6 @@
   }
   footer.page a{color:var(--ink-muted)}
 
-  @media (max-width: 640px){
-    table.rates thead th{top:0}
-  }
 </style>
 
 <div class="wrap">
@@ -555,5 +552,27 @@
   renderChips();
   renderHead();
   renderTable();
+
+  // Keep the table header's sticky offset in sync with the actual rendered
+  // height of the sticky controls bar above it, instead of a guessed pixel
+  // value — the controls bar's height can vary with font loading, wrapping
+  // at narrow widths, etc., and a stale guess makes the sticky header
+  // overlap the first row(s) of the table body.
+  (function(){
+    var controlsEl = document.getElementById('controls');
+    function syncStickyOffset(){
+      var h = controlsEl ? controlsEl.getBoundingClientRect().height : 0;
+      document.documentElement.style.setProperty('--controls-h', h + 'px');
+    }
+    syncStickyOffset();
+    window.addEventListener('resize', syncStickyOffset);
+    if(window.ResizeObserver && controlsEl){
+      new ResizeObserver(syncStickyOffset).observe(controlsEl);
+    }
+    // Fonts loading late can change the controls bar's height after first paint.
+    if(document.fonts && document.fonts.ready){
+      document.fonts.ready.then(syncStickyOffset);
+    }
+  })();
 })();
 </script>
