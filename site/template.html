@@ -158,14 +158,26 @@
   table.summary-table td.tier-cell.empty-cell{color:var(--ink-faint); font-weight:400; font-family:inherit}
   table.summary-table td.sum-hosp{font-size:11px; color:var(--ink-faint); display:block; font-weight:400; font-family:'IBM Plex Sans',sans-serif; white-space:normal; margin-top:1px}
 
-  /* table */
+  /* table
+     .tablewrap scrolls BOTH axes internally (own scrollbar, bounded height)
+     rather than relying on the whole page scrolling past it. This is
+     deliberate: overflow-x:auto on a wrapper implicitly turns overflow-y
+     into an "auto" scroll container too (per the CSS overflow spec — you
+     can't have one axis auto and the other visible), which makes it the
+     containing block for any position:sticky descendant. If that box has
+     no bounded height, position:sticky inside it degenerates into "fixed
+     offset from the wrapper's own top" instead of "stuck to the page on
+     scroll" — which is what caused the header to sit on top of row 2
+     instead of tracking scroll. Giving the wrapper an explicit max-height
+     makes it a real, consistent scroll container both ways, so the sticky
+     header behaves correctly. */
   .tablewrap{
-    overflow-x:auto; border:1px solid var(--border); border-radius:12px;
+    overflow:auto; max-height:70vh; border:1px solid var(--border); border-radius:12px;
     box-shadow:var(--shadow); background:var(--surface);
   }
   table.rates{width:100%; border-collapse:collapse; font-size:13px; min-width:1400px}
   table.rates thead th{
-    position:sticky; top:calc(env(safe-area-inset-top,0px) + var(--controls-h, 54px));
+    position:sticky; top:0;
     background:var(--surface-2); text-align:left; font-weight:600; font-size:11px;
     text-transform:uppercase; letter-spacing:0.03em; color:var(--ink-muted);
     padding:10px 10px; border-bottom:1px solid var(--border); white-space:nowrap;
@@ -552,27 +564,5 @@
   renderChips();
   renderHead();
   renderTable();
-
-  // Keep the table header's sticky offset in sync with the actual rendered
-  // height of the sticky controls bar above it, instead of a guessed pixel
-  // value — the controls bar's height can vary with font loading, wrapping
-  // at narrow widths, etc., and a stale guess makes the sticky header
-  // overlap the first row(s) of the table body.
-  (function(){
-    var controlsEl = document.getElementById('controls');
-    function syncStickyOffset(){
-      var h = controlsEl ? controlsEl.getBoundingClientRect().height : 0;
-      document.documentElement.style.setProperty('--controls-h', h + 'px');
-    }
-    syncStickyOffset();
-    window.addEventListener('resize', syncStickyOffset);
-    if(window.ResizeObserver && controlsEl){
-      new ResizeObserver(syncStickyOffset).observe(controlsEl);
-    }
-    // Fonts loading late can change the controls bar's height after first paint.
-    if(document.fonts && document.fonts.ready){
-      document.fonts.ready.then(syncStickyOffset);
-    }
-  })();
 })();
 </script>
