@@ -13,32 +13,52 @@
       "notes": "Rates shown are 'from' figures and apply to Singapore Citizens; PR/foreigner rates differ. B2 & C rates assume maximum government subsidy.",
       "wards": [
         {
-          "class": "C",
+          "class": "Standard Ward Type CUp to 8 beds in a room",
           "rate": 47.3,
-          "rate_display": "From S$47.30/day",
-          "citizenship": "Singapore Citizen (max subsidy)",
-          "tier": "multi_bed"
+          "rate_display": "FromS$47.30per day",
+          "citizenship": "All"
         },
         {
-          "class": "B2",
-          "rate": 66.4,
-          "rate_display": "From S$66.40/day",
-          "citizenship": "Singapore Citizen (max subsidy)",
-          "tier": "six_bed_b2"
+          "class": "Seater",
+          "rate": 97.56,
+          "rate_display": "S$97.56",
+          "citizenship": "All"
         },
         {
-          "class": "B1",
-          "rate": 383.9,
-          "rate_display": "From S$383.90/day",
-          "citizenship": "Singapore Citizen, incl. GST",
-          "tier": "four_bed_b1"
+          "class": "Bed (co-hort)",
+          "rate": 200.23,
+          "rate_display": "S$200.23",
+          "citizenship": "All"
         },
         {
-          "class": "A",
-          "rate": 765.51,
-          "rate_display": "From S$765.51/day",
-          "citizenship": "Singapore Citizen, incl. GST",
-          "tier": "single_a1"
+          "class": "Bed (Single)",
+          "rate": 313.59,
+          "rate_display": "S$313.59",
+          "citizenship": "All"
+        },
+        {
+          "class": "Ward Type",
+          "rate": 1.0,
+          "rate_display": "B1",
+          "citizenship": "All"
+        },
+        {
+          "class": "Estimated total bill ($)",
+          "rate": 850.0,
+          "rate_display": "850",
+          "citizenship": "All"
+        },
+        {
+          "class": "Estimated Medisave Claim Allowable ($)",
+          "rate": 1350.0,
+          "rate_display": "1350",
+          "citizenship": "All"
+        },
+        {
+          "class": "Estimated cash deposit required ($)",
+          "rate": 0.0,
+          "rate_display": "0",
+          "citizenship": "All"
         }
       ]
     },
@@ -53,32 +73,28 @@
       "notes": "Standard Ward rates for Singapore Citizens shown; PR/foreigner rates differ. B2 & C based on maximum subsidy.",
       "wards": [
         {
-          "class": "C",
-          "rate": 53.0,
-          "rate_display": "From S$53.00/day",
-          "citizenship": "Singapore Citizen",
-          "tier": "multi_bed"
+          "class": "​",
+          "rate": 1.0,
+          "rate_display": "​B1(Up to 4 Beds)",
+          "citizenship": "All"
         },
         {
-          "class": "B2",
-          "rate": 70.0,
-          "rate_display": "From S$70.00/day",
-          "citizenship": "Singapore Citizen",
-          "tier": "six_bed_b2"
+          "class": "​Singapore Citizen",
+          "rate": 765.5,
+          "rate_display": "​From $765.50",
+          "citizenship": "All"
         },
         {
-          "class": "B1",
-          "rate": 383.0,
-          "rate_display": "From S$383.00/day",
-          "citizenship": "Singapore Citizen",
-          "tier": "four_bed_b1"
+          "class": "​Permanent Resident",
+          "rate": 765.5,
+          "rate_display": "​​From $765.50",
+          "citizenship": "All"
         },
         {
-          "class": "A",
-          "rate": 765.0,
-          "rate_display": "From S$765.00/day",
-          "citizenship": "Singapore Citizen",
-          "tier": "single_a1"
+          "class": "​Others",
+          "rate": 765.5,
+          "rate_display": "​​From $765.50",
+          "citizenship": "All"
         }
       ]
     },
@@ -93,32 +109,34 @@
       "notes": "Acute Ward, Singapore Citizen rates; effective 1 Oct 2025. Excludes daily treatment fee, medication, labs, imaging.",
       "wards": [
         {
-          "class": "C",
-          "rate": 56.0,
-          "rate_display": "S$56/day",
-          "citizenship": "Singapore Citizen",
-          "tier": "multi_bed"
-        },
-        {
-          "class": "B2",
-          "rate": 69.0,
-          "rate_display": "S$69/day",
-          "citizenship": "Singapore Citizen",
-          "tier": "six_bed_b2"
-        },
-        {
-          "class": "B1",
-          "rate": 384.0,
-          "rate_display": "S$384/day",
-          "citizenship": "Singapore Citizen",
-          "tier": "four_bed_b1"
-        },
-        {
-          "class": "A",
+          "class": "Singapore Citizens",
           "rate": 745.0,
-          "rate_display": "S$745/day",
-          "citizenship": "Singapore Citizen",
-          "tier": "single_a1"
+          "rate_display": "S$ 745",
+          "citizenship": "All"
+        },
+        {
+          "class": "Permanent Residents",
+          "rate": 745.0,
+          "rate_display": "S$ 745",
+          "citizenship": "All"
+        },
+        {
+          "class": "Resident Foreigners",
+          "rate": 745.0,
+          "rate_display": "from S$ 745",
+          "citizenship": "All"
+        },
+        {
+          "class": "Seater",
+          "rate": 114.0,
+          "rate_display": "S$ 114",
+          "citizenship": "All"
+        },
+        {
+          "class": "Bed",
+          "rate": 228.0,
+          "rate_display": "S$ 228",
+          "citizenship": "All"
         }
       ]
     },
@@ -133,32 +151,16 @@
       "notes": "Women's inpatient ward fees, Singapore Citizen rates. A separate Children's ward table exists at /inpatient-charges/children (A1 $765.50, B1 $402.32, B2 $79.80, C $45.60) — see that page for paediatric rates.",
       "wards": [
         {
-          "class": "C",
-          "rate": 43.1,
-          "rate_display": "From S$43.10/day",
-          "citizenship": "Singapore Citizen",
-          "tier": "multi_bed"
+          "class": "Inpatient",
+          "rate": 1.0,
+          "rate_display": "Ward Type A1",
+          "citizenship": "All"
         },
         {
-          "class": "B2",
-          "rate": 75.6,
-          "rate_display": "From S$75.60/day",
-          "citizenship": "Singapore Citizen",
-          "tier": "six_bed_b2"
-        },
-        {
-          "class": "B1",
-          "rate": 369.18,
-          "rate_display": "From S$369.18/day",
-          "citizenship": "Singapore Citizen",
-          "tier": "four_bed_b1"
-        },
-        {
-          "class": "A1",
-          "rate": 713.84,
-          "rate_display": "From S$713.84/day",
-          "citizenship": "Singapore Citizen",
-          "tier": "single_a1"
+          "class": "Daily Ward Fee",
+          "rate": 765.5,
+          "rate_display": "765.50",
+          "citizenship": "All"
         }
       ]
     },
@@ -169,8 +171,8 @@
       "group": "National Healthcare Group (NHG)",
       "source_url": "https://www.nhghealth.com.sg/ktph/for-patients-and-visitors/hospital-charges-payments",
       "retrieved_date": "2026-09-22",
-      "data_status": "ok",
-      "notes": "Acute Ward, Singapore Citizen rates; effective 1 Sep 2026. Bed charges only — excludes daily treatment fee, procedures, meds, labs, x-rays.",
+      "data_status": "stale",
+      "notes": "Fetch failed this run; keeping last known data from 2026-09-22.",
       "wards": [
         {
           "class": "C",
@@ -209,8 +211,8 @@
       "group": "National Healthcare Group (NHG)",
       "source_url": "https://www.nhghealth.com.sg/wh/for-patients-visitors/charges-payments",
       "retrieved_date": "2026-09-22",
-      "data_status": "ok",
-      "notes": "Acute Ward, Singapore Citizen rates; effective 1 Apr 2026. Excludes investigations, medication, procedures.",
+      "data_status": "stale",
+      "notes": "Fetch failed this run; keeping last known data from 2026-09-22.",
       "wards": [
         {
           "class": "C",
@@ -249,8 +251,8 @@
       "group": "National Healthcare Group (NHG)",
       "source_url": "https://www.nhghealth.com.sg/imh/patients-visitors/charges-payments",
       "retrieved_date": "2026-09-22",
-      "data_status": "partial",
-      "notes": "IMH uses a different ward naming convention (1-bedded / B1 4-bedded) rather than standard A/B1/B2/C classes. Figures include a separate Daily Treatment Fee not shown here — treat as indicative only.",
+      "data_status": "stale",
+      "notes": "Fetch failed this run; keeping last known data from 2026-09-22.",
       "wards": [
         {
           "class": "B1 (4-bedded)",
@@ -275,8 +277,8 @@
       "group": "National Healthcare Group (NHG)",
       "source_url": "https://www.nhghealth.com.sg/ttsh/patients-visitors/your-hospital-stay#Inpatient%20Charges",
       "retrieved_date": "2026-09-22",
-      "data_status": "ok",
-      "notes": "TTSH/NCID General Ward rates shown, inclusive of 9% GST, rounded up to nearest dollar; B2 & C based on maximum subsidy. Same page also lists HDU, SACU/ACA/ASU, Neuro HDU, ICU and Neuro ICU rates (e.g. ICU A1 from $1,506, B1 from $1,205, B2 & C from $277/day) and Day Surgery rates. Deluxe class is not applicable to NCID.",
+      "data_status": "stale",
+      "notes": "Fetch failed this run; keeping last known data from 2026-09-22.",
       "wards": [
         {
           "class": "C",
@@ -322,8 +324,8 @@
       "group": "National University Health System (NUHS)",
       "source_url": "https://www.nuh.com.sg/care-at-nuh/fees-and-charges",
       "retrieved_date": "2026-09-22",
-      "data_status": "ok",
-      "notes": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review) rather than guessed. General Ward rates shown; HDU and ICU rates on the same page run as ranges (e.g. A1 HDU $971.30–$1,050.32, A1 ICU $1,108.53–$1,573.42) — see source for those and for PR/foreigner variants.",
+      "data_status": "stale",
+      "notes": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review) rather than guessed. General Ward rates shown; HDU and ICU rates on the same page run as ranges (e.g. A1 HDU $971.30–$1,050.32, A1 ICU $1,108.53–$1,573.42) — see source for those and for PR/foreigner variants. [Auto-check: fetch failed this run; last confirmed 2026-09-22.]",
       "wards": [
         {
           "class": "C (8-bed, subsidised)",
@@ -370,8 +372,8 @@
       "group": "National University Health System (NUHS)",
       "source_url": "https://www.ntfgh.com.sg/for-patients-and-visitors/charges-and-payment",
       "retrieved_date": "2026-09-22",
-      "data_status": "ok",
-      "notes": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review). Acute Ward rates shown; the same image also lists ICU (A $1,503 / B1 $1,202 / B2 $232 / C $179) and HDU (A $1,028 / B1 $823 / B2 $159 / C $105) rates. Effective 1 Sep 2026.",
+      "data_status": "stale",
+      "notes": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review). Acute Ward rates shown; the same image also lists ICU (A $1,503 / B1 $1,202 / B2 $232 / C $179) and HDU (A $1,028 / B1 $823 / B2 $159 / C $105) rates. Effective 1 Sep 2026. [Auto-check: fetch failed this run; last confirmed 2026-09-22.]",
       "wards": [
         {
           "class": "C",
@@ -411,8 +413,8 @@
       "group": "National University Health System (NUHS)",
       "source_url": "https://www.ah.com.sg/for-patients-and-visitors/charges-and-payment",
       "retrieved_date": "2026-09-22",
-      "data_status": "ok",
-      "notes": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review). General Ward rates shown; the same image also lists HDU (A1 $1,027.54 / B1 $821.97 / B2 $155 / C $155) and ICU (A1 $1,367.41 / B1 $1,093.92 / B2 $224.70 / C $224.70) rates. Effective Sep 2026.",
+      "data_status": "stale",
+      "notes": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review). General Ward rates shown; the same image also lists HDU (A1 $1,027.54 / B1 $821.97 / B2 $155 / C $155) and ICU (A1 $1,367.41 / B1 $1,093.92 / B2 $224.70 / C $224.70) rates. Effective Sep 2026. [Auto-check: fetch failed this run; last confirmed 2026-09-22.]",
       "wards": [
         {
           "class": "C (5-bed open cubicle, subsidised)",
@@ -452,8 +454,8 @@
       "group": "IHH Healthcare (Parkway Pantai)",
       "source_url": "https://www.mountelizabeth.com.sg/hospital-wards-rooms/room-rates",
       "retrieved_date": "2026-09-22",
-      "data_status": "ok",
-      "notes": "Room charges only; daily treatment fee applies separately for inpatient and day surgery cases. Rates include GST.",
+      "data_status": "stale",
+      "notes": "Fetch failed this run; keeping last known data from 2026-09-22.",
       "wards": [
         {
           "class": "4-bedded room",
@@ -499,8 +501,8 @@
       "group": "IHH Healthcare (Parkway Pantai)",
       "source_url": "https://www.mountelizabeth.com.sg/hospital-wards-rooms/room-rates",
       "retrieved_date": "2026-09-22",
-      "data_status": "ok",
-      "notes": "Shares its room-rate page with Mount Elizabeth Hospital (Orchard); rates listed in a separate table on the same page. Room charges only, GST inclusive.",
+      "data_status": "stale",
+      "notes": "Fetch failed this run; keeping last known data from 2026-09-22.",
       "wards": [
         {
           "class": "Single Room",
@@ -532,8 +534,8 @@
       "group": "IHH Healthcare (Parkway Pantai)",
       "source_url": "https://www.gleneagles.com.sg/hospital-wards-rooms/room-rates",
       "retrieved_date": "2026-09-22",
-      "data_status": "ok",
-      "notes": "Room charges only; daily treatment fee applies separately. Rates include GST.",
+      "data_status": "stale",
+      "notes": "Fetch failed this run; keeping last known data from 2026-09-22.",
       "wards": [
         {
           "class": "4-Bedded Room",
@@ -579,8 +581,8 @@
       "group": "IHH Healthcare (Parkway Pantai)",
       "source_url": "https://www.parkwayeast.com.sg/hospital-wards-rooms/room-rates",
       "retrieved_date": "2026-09-22",
-      "data_status": "ok",
-      "notes": "Room charges only; daily treatment fee applies separately. Rates include GST.",
+      "data_status": "stale",
+      "notes": "Fetch failed this run; keeping last known data from 2026-09-22.",
       "wards": [
         {
           "class": "4-Bedded Room",
@@ -637,46 +639,112 @@
       "notes": "Room charges only, inclusive of GST. Day surgery and nursery rates published separately on the same page.",
       "wards": [
         {
-          "class": "2-Bedded Room",
-          "rate": 448,
-          "rate_display": "S$448/day",
-          "citizenship": "All",
-          "tier": "two_bed"
+          "class": "Presidential Suite",
+          "rate": 6883.0,
+          "rate_display": "6,883",
+          "citizenship": "All"
         },
         {
-          "class": "Single Room",
-          "rate": 833,
-          "rate_display": "S$833/day",
-          "citizenship": "All",
-          "tier": "single_a1"
+          "class": "Raffles Suite and Victoria Suite",
+          "rate": 3883.0,
+          "rate_display": "3,883",
+          "citizenship": "All"
         },
         {
-          "class": "Deluxe Room",
-          "rate": 923,
-          "rate_display": "S$923/day",
-          "citizenship": "All",
-          "tier": "deluxe_suite"
+          "class": "Nicoll Suite and Ophir Suite",
+          "rate": 2383.0,
+          "rate_display": "2,383",
+          "citizenship": "All"
+        },
+        {
+          "class": "Executive Suite",
+          "rate": 1883.0,
+          "rate_display": "1,883",
+          "citizenship": "All"
         },
         {
           "class": "Junior Suite",
-          "rate": 1283,
-          "rate_display": "S$1,283/day",
-          "citizenship": "All",
-          "tier": "deluxe_suite"
+          "rate": 1283.0,
+          "rate_display": "1,283",
+          "citizenship": "All"
         },
         {
-          "class": "Presidential Suite",
-          "rate": 6883,
-          "rate_display": "S$6,883/day",
-          "citizenship": "All",
-          "tier": "deluxe_suite"
+          "class": "Deluxe Room",
+          "rate": 923.0,
+          "rate_display": "923",
+          "citizenship": "All"
         },
         {
-          "class": "ICU",
-          "rate": 938,
-          "rate_display": "S$938/day",
-          "citizenship": "All",
-          "tier": "icu"
+          "class": "Single Room",
+          "rate": 833.0,
+          "rate_display": "833",
+          "citizenship": "All"
+        },
+        {
+          "class": "2-Bedded Room",
+          "rate": 448.0,
+          "rate_display": "448",
+          "citizenship": "All"
+        },
+        {
+          "class": "Intensive Care Unit",
+          "rate": 938.0,
+          "rate_display": "938",
+          "citizenship": "All"
+        },
+        {
+          "class": "Intermediate Care Area",
+          "rate": 838.0,
+          "rate_display": "838",
+          "citizenship": "All"
+        },
+        {
+          "class": "Nursery – Normal Newborn Care",
+          "rate": 100.0,
+          "rate_display": "100",
+          "citizenship": "All"
+        },
+        {
+          "class": "Nursery – Neonatal Care Level 1",
+          "rate": 298.0,
+          "rate_display": "298",
+          "citizenship": "All"
+        },
+        {
+          "class": "Neonatal Intensive Care – Level 2A",
+          "rate": 418.0,
+          "rate_display": "418",
+          "citizenship": "All"
+        },
+        {
+          "class": "Neonatal Intensive Care – Level 2B",
+          "rate": 658.0,
+          "rate_display": "658",
+          "citizenship": "All"
+        },
+        {
+          "class": "Neonatal Intensive Care – Level 3",
+          "rate": 788.0,
+          "rate_display": "788",
+          "citizenship": "All"
+        },
+        {
+          "class": "Day Surgery, First 3 Hours",
+          "rate": 153.0,
+          "rate_display": "153",
+          "citizenship": "All"
+        },
+        {
+          "class": "Subsequent Rate Per Hour – During office hours",
+          "rate": 60.0,
+          "rate_display": "60",
+          "citizenship": "All"
+        },
+        {
+          "class": "Day Surgery Single Room – Up to 8 hours, 1 Meal Included",
+          "rate": 383.0,
+          "rate_display": "383",
+          "citizenship": "All"
         }
       ]
     },
@@ -687,8 +755,8 @@
       "group": "Thomson Medical Group",
       "source_url": "https://www.thomsonmedical.com/delivering-at-thomson/rooms-and-rates",
       "retrieved_date": "2026-09-22",
-      "data_status": "partial",
-      "notes": "Thomson Medical's published rate page is framed around maternity/delivery stays; rates should still reflect general room & board pricing but are sourced from that page specifically. Rates effective 1 Jul 2026, inclusive of GST, room charges only.",
+      "data_status": "stale",
+      "notes": "Fetch failed this run; keeping last known data from 2026-09-22.",
       "wards": [
         {
           "class": "4-Bedded Room",
@@ -734,8 +802,8 @@
       "group": "Independent (not-for-profit)",
       "source_url": "https://mtalvernia.sg/cost-financing/",
       "retrieved_date": "2026-09-22",
-      "data_status": "ok",
-      "notes": "Medical/Surgical ward rates shown; separate O&G and Paediatric tables exist on the same page. Rates include GST.",
+      "data_status": "stale",
+      "notes": "Fetch failed this run; keeping last known data from 2026-09-22.",
       "wards": [
         {
           "class": "6-bedded",
@@ -788,8 +856,8 @@
       "group": "Independent",
       "source_url": "https://www.farrerpark.com/patients-and-visitors/cost-and-financing/Room-Rates.html",
       "retrieved_date": "2026-09-22",
-      "data_status": "partial",
-      "notes": "Page states rates are 'inclusive of GST as at Jan 1, 2025' — the effective date is older than most other sources here, so treat as potentially stale pending the site's own update.",
+      "data_status": "stale",
+      "notes": "Fetch failed this run; keeping last known data from 2026-09-22.",
       "wards": [
         {
           "class": "4-bedded",
