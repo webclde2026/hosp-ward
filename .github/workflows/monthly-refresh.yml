@@ -1,0 +1,122 @@
+name: Monthly rate refresh
+
+# Runs on the 1st of every month, and can also be triggered manually from
+# the Actions tab ("Run workflow") to test it without waiting for the cron.
+on:
+  schedule:
+    - cron: "0 20 1 * *"   # 1st of the month, 20:00 UTC = 4:00am Singapore time (next day)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write   # so the workflow can commit the refreshed data/site back
+  issues: write     # so it can open/update the "needs review" issue
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run scraper (re-check every hospital's source page)
+        run: python3 scraper/scrape.py
+
+      - name: Rebuild static site
+        run: python3 site/build.py
+
+      - name: Commit and push if anything changed
+        id: commit
+        run: |
+          git config user.name "hospital-rate-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/hospitals.json data/scrape_log.json site/index.html docs/index.html
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No changes this run."
+          else
+            git commit -m "Monthly refresh: $(date -u +%Y-%m-%d)"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open/update an issue if any image-based hospital needs manual review
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const log = JSON.parse(fs.readFileSync('data/scrape_log.json', 'utf8'));
+            const needsReview = log.needs_review || [];
+            const title = "Monthly rate check: source pages changed — review needed";
+
+            // Find an existing open issue from a previous run, so we update
+            // one running issue instead of opening a new one every month.
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'rate-review',
+            });
+            const openIssue = existing.data.find(i => i.title === title);
+
+            if (needsReview.length === 0) {
+              if (openIssue) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: openIssue.number,
+                  body: `No hospitals need review as of ${new Date().toISOString().slice(0,10)} — closing.`,
+                });
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: openIssue.number,
+                  state: 'closed',
+                });
+              }
+              console.log("Nothing needs review this run.");
+              return;
+            }
+
+            const body = [
+              "The following hospitals publish their room & board rates as an image, not text, " +
+              "so this can't be auto-extracted safely. The source page for each one changed since " +
+              "it was last read, which usually means the rate image was updated:",
+              "",
+              ...needsReview.map(h => `- **${h.name}** — ${h.url}`),
+              "",
+              "To resolve: open each source URL above, read the current rate table (screenshot it " +
+              "if needed), update the matching hospital's `wards` in `data/hospitals.json` by hand, " +
+              "set `data_status` back to `\"ok\"`, update `retrieved_date`, then run `python3 site/build.py` " +
+              "and commit. This issue will auto-close once no hospital needs review.",
+            ].join("\n");
+
+            if (openIssue) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: openIssue.number,
+                body,
+              });
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: openIssue.number,
+                body: `Still needs review as of ${new Date().toISOString().slice(0,10)}.`,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                labels: ['rate-review'],
+              });
+            }
