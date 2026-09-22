@@ -1,0 +1,559 @@
+<title>Ward Rate Compass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F8F8;
+    --surface:#FFFFFF;
+    --surface-2:#EFF3F3;
+    --row-alt:#FAFCFC;
+    --ink:#15242A;
+    --ink-muted:#57696E;
+    --ink-faint:#8B9BA0;
+    --border:#DCE5E6;
+    --accent:#0E7C6B;
+    --accent-ink:#FFFFFF;
+    --accent-soft:#E2F1EC;
+    --warn:#9A6A16;
+    --warn-soft:#F6ECD9;
+    --bad:#A33B44;
+    --bad-soft:#F6E4E4;
+    --focus:#0E7C6B;
+    --shadow: 0 1px 2px rgba(21,36,42,0.06), 0 8px 24px -12px rgba(21,36,42,0.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0E1516;
+      --surface:#15201F;
+      --surface-2:#1B2726;
+      --row-alt:#131D1C;
+      --ink:#EAF1EF;
+      --ink-muted:#A6B7B5;
+      --ink-faint:#748584;
+      --border:#2A3736;
+      --accent:#3FBFA2;
+      --accent-ink:#08201B;
+      --accent-soft:#1B3630;
+      --warn:#E0B457;
+      --warn-soft:#3A3018;
+      --bad:#E38A8F;
+      --bad-soft:#3C2224;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 28px -12px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E1516;
+    --surface:#15201F;
+    --surface-2:#1B2726;
+    --row-alt:#131D1C;
+    --ink:#EAF1EF;
+    --ink-muted:#A6B7B5;
+    --ink-faint:#748584;
+    --border:#2A3736;
+    --accent:#3FBFA2;
+    --accent-ink:#08201B;
+    --accent-soft:#1B3630;
+    --warn:#E0B457;
+    --warn-soft:#3A3018;
+    --bad:#E38A8F;
+    --bad-soft:#3C2224;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 28px -12px rgba(0,0,0,0.55);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
+    margin:0;
+    padding-inline:16px;
+    padding-block:20px 48px;
+  }
+  h1,h2,h3{font-family:'IBM Plex Serif', Georgia, serif; text-wrap:balance; margin:0}
+  .num{font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums}
+  a{color:var(--accent)}
+  :focus-visible{outline:2px solid var(--focus); outline-offset:2px}
+
+  .wrap{max-width:1440px; margin-inline:auto}
+
+  header.page{
+    display:flex; flex-direction:column; gap:10px;
+    padding-block:6px 22px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:18px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px; letter-spacing:0.09em; text-transform:uppercase;
+    color:var(--accent); font-weight:600;
+  }
+  header.page h1{font-size:clamp(26px,4.5vw,34px); font-weight:600; letter-spacing:-0.01em}
+  .sub{color:var(--ink-muted); font-size:14.5px; max-width:76ch; line-height:1.5}
+
+  .meta-row{
+    display:flex; flex-wrap:wrap; gap:10px 22px; align-items:baseline;
+    font-size:13px; color:var(--ink-muted); margin-top:4px;
+  }
+  .meta-row b{color:var(--ink); font-weight:600}
+
+  .stat-strip{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+    gap:10px; margin-top:14px;
+  }
+  .stat{
+    background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    padding:12px 14px;
+  }
+  .stat .n{font-family:'IBM Plex Mono',monospace; font-size:22px; font-weight:600; line-height:1.1}
+  .stat .l{font-size:11.5px; color:var(--ink-muted); margin-top:3px; letter-spacing:0.02em}
+
+  /* controls */
+  .controls{
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+    margin-bottom:12px; position:sticky; top:env(safe-area-inset-top,0px);
+    background:var(--bg); padding-block:10px; z-index:6;
+  }
+  .search{
+    flex:1 1 220px; display:flex; align-items:center; gap:8px;
+    background:var(--surface); border:1px solid var(--border); border-radius:9px;
+    padding:9px 12px;
+  }
+  .search input{
+    border:0; background:transparent; outline:none; font-size:14px; width:100%;
+    color:var(--ink); font-family:inherit;
+  }
+  .search svg{flex:none; color:var(--ink-faint)}
+  .chipset{display:flex; gap:6px; flex-wrap:wrap}
+  .chip{
+    border:1px solid var(--border); background:var(--surface); color:var(--ink-muted);
+    border-radius:999px; padding:7px 13px; font-size:12.5px; font-weight:500;
+    cursor:pointer; user-select:none; transition:background .12s, color .12s, border-color .12s;
+    white-space:nowrap;
+  }
+  .chip:hover{border-color:var(--accent)}
+  .chip[aria-pressed="true"]{
+    background:var(--accent); color:var(--accent-ink); border-color:var(--accent);
+  }
+
+  .legend{display:flex; gap:14px; flex-wrap:wrap; font-size:12px; color:var(--ink-muted); margin-bottom:14px}
+  .legend .dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px}
+
+  /* summary block */
+  .summary-block{margin-bottom:22px}
+  .summary-title{font-size:13px; font-weight:600; color:var(--ink-muted); text-transform:uppercase; letter-spacing:0.03em; font-family:'IBM Plex Sans',sans-serif; margin-bottom:8px}
+  .summary-sub{font-size:12.5px; color:var(--ink-muted); margin:2px 0 10px; max-width:76ch; line-height:1.5}
+  .summary-tablewrap{overflow-x:auto; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); background:var(--surface)}
+  table.summary-table{width:100%; border-collapse:collapse; font-size:13px; min-width:900px}
+  table.summary-table thead th{
+    background:var(--accent-soft); text-align:left; font-weight:600; font-size:11px;
+    text-transform:uppercase; letter-spacing:0.03em; color:var(--ink-muted);
+    padding:10px 10px; border-bottom:1px solid var(--border); white-space:nowrap;
+  }
+  table.summary-table thead th.tier-col{text-align:right}
+  table.summary-table tbody tr{border-bottom:1px solid var(--border)}
+  table.summary-table tbody tr:last-child{border-bottom:0}
+  table.summary-table td{padding:9px 10px; vertical-align:top; color:var(--ink)}
+  table.summary-table td.tier-cell{font-family:'IBM Plex Mono',monospace; font-weight:600; text-align:right; white-space:nowrap; font-size:12.5px}
+  table.summary-table td.tier-cell.empty-cell{color:var(--ink-faint); font-weight:400; font-family:inherit}
+  table.summary-table td.sum-hosp{font-size:11px; color:var(--ink-faint); display:block; font-weight:400; font-family:'IBM Plex Sans',sans-serif; white-space:normal; margin-top:1px}
+
+  /* table */
+  .tablewrap{
+    overflow-x:auto; border:1px solid var(--border); border-radius:12px;
+    box-shadow:var(--shadow); background:var(--surface);
+  }
+  table.rates{width:100%; border-collapse:collapse; font-size:13px; min-width:1400px}
+  table.rates thead th{
+    position:sticky; top:calc(env(safe-area-inset-top,0px) + 54px);
+    background:var(--surface-2); text-align:left; font-weight:600; font-size:11px;
+    text-transform:uppercase; letter-spacing:0.03em; color:var(--ink-muted);
+    padding:10px 10px; border-bottom:1px solid var(--border); white-space:nowrap;
+    cursor:pointer; user-select:none;
+  }
+  table.rates thead th .arrow{opacity:0.35; margin-left:4px; font-size:10px}
+  table.rates thead th[aria-sort="ascending"] .arrow,
+  table.rates thead th[aria-sort="descending"] .arrow{opacity:1; color:var(--accent)}
+  table.rates thead th.tier-col{text-align:right}
+  table.rates thead th.hospital-col{
+    position:sticky; left:0; z-index:2; box-shadow: 1px 0 0 var(--border);
+  }
+  table.rates tbody td.hospital-col{
+    position:sticky; left:0; z-index:1; background:var(--surface); box-shadow: 1px 0 0 var(--border);
+  }
+  table.rates tbody tr:nth-child(even) td.hospital-col{background:var(--row-alt)}
+  table.rates tbody tr:hover td.hospital-col{background:var(--accent-soft)}
+  table.rates tbody tr{border-bottom:1px solid var(--border)}
+  table.rates tbody tr:nth-child(even){background:var(--row-alt)}
+  table.rates tbody tr:hover{background:var(--accent-soft)}
+  table.rates td{padding:9px 10px; vertical-align:top; color:var(--ink)}
+  table.rates td.hospital{font-weight:600; white-space:nowrap; max-width:220px; white-space:normal}
+  table.rates td.hospital a{color:inherit; text-decoration:none; border-bottom:1px dotted var(--ink-faint)}
+  table.rates td.hospital a:hover{color:var(--accent); border-bottom-color:var(--accent)}
+  table.rates td.tier-cell{font-family:'IBM Plex Mono',monospace; font-weight:600; text-align:right; white-space:nowrap; font-size:12.5px}
+  table.rates td.tier-cell.empty-cell{color:var(--ink-faint); font-weight:400; font-family:inherit}
+  table.rates td.muted{color:var(--ink-muted); font-size:12px}
+
+  .badge{
+    font-size:10.5px; font-weight:600; letter-spacing:0.02em; padding:2px 7px; border-radius:6px;
+    border:1px solid var(--border); color:var(--ink-muted); background:var(--surface-2);
+    white-space:nowrap; display:inline-block;
+  }
+  .badge.sector-public{color:#1B5FA8; border-color:#C6D9EE; background:#E9F1FA}
+  :root:not([data-theme="light"]) .badge.sector-public,
+  :root[data-theme="dark"] .badge.sector-public{color:#8FC0F2; border-color:#254257; background:#132433}
+  .badge.sector-private{color:#7A4EA8; border-color:#DED0EE; background:#F3ECFA}
+  :root:not([data-theme="light"]) .badge.sector-private,
+  :root[data-theme="dark"] .badge.sector-private{color:#C9A6EC; border-color:#3A2C50; background:#231A33}
+
+  .status-dot{
+    display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600;
+    white-space:nowrap;
+  }
+  .status-dot .dot{width:7px; height:7px; border-radius:50%; flex:none}
+  .status-dot.ok{color:var(--accent)}
+  .status-dot.ok .dot{background:var(--accent)}
+  .status-dot.partial{color:var(--warn)}
+  .status-dot.partial .dot{background:var(--warn)}
+  .status-dot.unavailable{color:var(--bad)}
+  .status-dot.unavailable .dot{background:var(--bad)}
+
+  .src-link{font-size:12px; white-space:nowrap}
+
+  .unavail-row td{color:var(--ink-faint)}
+
+  .empty{text-align:center; padding:48px 20px; color:var(--ink-muted)}
+
+  footer.page{
+    margin-top:28px; padding-top:18px; border-top:1px solid var(--border);
+    font-size:12px; color:var(--ink-faint); line-height:1.6;
+  }
+  footer.page a{color:var(--ink-muted)}
+
+  @media (max-width: 640px){
+    table.rates thead th{top:0}
+  }
+</style>
+
+<div class="wrap">
+  <header class="page">
+    <div class="eyebrow">Singapore · Healthcare Costs</div>
+    <h1>Ward Rate Compass</h1>
+    <p class="sub">Daily room &amp; board rates across Singapore's public, restructured and private hospitals &mdash; one row per hospital, one column per ward tier &mdash; sourced directly from each hospital's own website. Ward names vary by hospital (e.g. a private "Single Room" and a public "A1" are both grouped under A1 / Single); hover a figure to see the hospital's own label. Figures are bed charges only &mdash; they exclude treatment fees, medication, procedures and tests unless noted.</p>
+    <div class="meta-row">
+      <span>Last updated <b id="lastUpdated">&mdash;</b></span>
+      <span>Next refresh <b id="nextRefresh">&mdash;</b></span>
+      <span id="counts"></span>
+    </div>
+    <div class="stat-strip" id="statStrip"></div>
+  </header>
+
+  <div class="summary-block">
+    <div class="summary-title">Highest rate by sector &amp; ward tier</div>
+    <p class="summary-sub">The single highest daily rate found in each ward tier, split by public/restructured vs. private hospitals — a quick read on the ceiling of what each sector charges. Hover a figure for the hospital it comes from; this does not replace the full table below, where every hospital's own rate is listed individually.</p>
+    <div class="summary-tablewrap">
+      <table class="summary-table" id="summaryTable">
+        <thead><tr id="summaryHead"></tr></thead>
+        <tbody id="summaryBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="controls" id="controls">
+    <div class="search" role="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="q" type="text" placeholder="Search hospital or group&hellip;" aria-label="Search rows">
+    </div>
+    <div class="chipset" id="sectorChips"></div>
+  </div>
+
+  <div class="legend">
+    <span><span class="dot" style="background:var(--accent)"></span>Verified figure</span>
+    <span><span class="dot" style="background:var(--warn)"></span>Partial, stale or needs review (figures shown are the last confirmed values)</span>
+    <span><span class="dot" style="background:var(--bad)"></span>Unavailable — flagged, not guessed</span>
+    <span>Click a column header to sort · figures are plain daily rates in S$, no symbols, so the table pastes into Excel as numbers · hover a rate for the hospital's own ward label</span>
+  </div>
+
+  <div class="tablewrap">
+    <table class="rates" id="ratesTable">
+      <thead>
+        <tr id="headRow"></tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <div class="empty" id="emptyState" hidden>No hospitals match that search.</div>
+
+  <footer class="page">
+    <p>Sourced directly from each hospital's official website, retrieved on the date shown in each row. Where a hospital's rate table is published as an image rather than text, figures were read directly off that image. A hospital with more than one room in the same tier shows its highest qualifying rate, with the fuller list in the hover tooltip and on the source page. Rates change without notice — always confirm with the hospital before admission. This page is an independent aggregation for reference only and is not affiliated with MOH or any hospital group. Dataset refreshes automatically on the 1st of every month.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var DATA = __HOSPITAL_DATA__;
+
+  var TIERS = [
+    {key:'multi_bed',    label:'C / Multi-bed'},
+    {key:'six_bed_b2',   label:'B2 / 5–6 Bed'},
+    {key:'four_bed_b1',  label:'B1 / 4-Bed'},
+    {key:'two_bed',      label:'2-Bed'},
+    {key:'single_a1',    label:'A1 / Single'}
+  ];
+
+  function sectorRank(s){ return s === 'Public' ? 0 : 1; }
+  function fmtNum(n){
+    if(n === null || n === undefined || isNaN(n)) return '';
+    var r = Math.round(n * 100) / 100; // avoid float noise, keep up to 2dp
+    return String(r);
+  }
+  function escapeHtml(s){
+    return String(s==null?'':s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function fmtDate(iso){
+    if(!iso) return '—';
+    var d = new Date(iso + 'T00:00:00');
+    if(isNaN(d)) return iso;
+    return d.toLocaleDateString('en-SG', {day:'numeric', month:'short', year:'numeric'});
+  }
+  function statusClass(s){
+    if(s === 'ok') return 'ok';
+    if(s === 'partial' || s === 'stale' || s === 'needs_review') return 'partial';
+    return 'unavailable';
+  }
+  function statusLabel(s){
+    if(s === 'ok') return 'Verified';
+    if(s === 'partial') return 'Partial';
+    if(s === 'stale') return 'Stale';
+    if(s === 'needs_review') return 'Needs review';
+    return 'Unavailable';
+  }
+
+  // Build one pivoted row per hospital
+  var rows = DATA.hospitals.map(function(h){
+    var cells = {};
+    TIERS.forEach(function(t){ cells[t.key] = []; });
+    (h.wards||[]).forEach(function(w){
+      if(w.tier && cells[w.tier]) cells[w.tier].push(w);
+    });
+    var tierOut = {};
+    TIERS.forEach(function(t){
+      var list = cells[t.key];
+      if(!list.length){ tierOut[t.key] = null; return; }
+      list.sort(function(a,b){
+        if(a.rate === null && b.rate === null) return 0;
+        if(a.rate === null) return 1;
+        if(b.rate === null) return -1;
+        return b.rate - a.rate;
+      });
+      var primary = list[0];
+      var title = list.map(function(w){
+        return w.class + (w.citizenship && w.citizenship !== 'All' ? ' ('+w.citizenship+')' : '') + ': ' + w.rate_display;
+      }).join(' · ') + (list.length > 1 ? ' — highest of '+list.length+' rates in this tier shown' : '');
+      tierOut[t.key] = {
+        display: fmtNum(primary.rate),
+        rate: primary.rate,
+        title: title
+      };
+    });
+    return {
+      name: h.name, sector: h.sector, group: h.group,
+      status: h.data_status, retrieved: h.retrieved_date, source: h.source_url,
+      notes: h.notes, tiers: tierOut, unavailable: !h.wards || !h.wards.length
+    };
+  });
+
+  // Highest rate per sector x ward tier, for the summary block
+  var SECTORS = ['Public', 'Private'];
+  var summaryRows = SECTORS.map(function(sector){
+    var group = rows.filter(function(r){ return r.sector === sector; });
+    var tierOut = {};
+    TIERS.forEach(function(t){
+      var best = null;
+      group.forEach(function(r){
+        var cell = r.tiers[t.key];
+        if(cell && cell.rate !== null && (!best || cell.rate > best.rate)){
+          best = { rate: cell.rate, display: fmtNum(cell.rate), hospital: r.name };
+        }
+      });
+      tierOut[t.key] = best;
+    });
+    return { sector: sector, tiers: tierOut, count: group.length };
+  });
+
+  function renderSummary(){
+    var head = document.getElementById('summaryHead');
+    var cols = [{key:'sector', label:'Sector'}].concat(TIERS.map(function(t){ return {key:t.key, label:t.label, tier:true}; }));
+    head.innerHTML = cols.map(function(c){
+      return '<th class="'+(c.tier?'tier-col':'')+'">'+escapeHtml(c.label)+'</th>';
+    }).join('');
+
+    var body = document.getElementById('summaryBody');
+    body.innerHTML = summaryRows.map(function(r){
+      var sectorBadgeClass = r.sector === 'Public' ? 'sector-public' : 'sector-private';
+      var tierCells = TIERS.map(function(t){
+        var cell = r.tiers[t.key];
+        if(!cell) return '<td class="tier-cell empty-cell">—</td>';
+        return '<td class="tier-cell" title="'+escapeHtml(cell.hospital)+'">'+escapeHtml(cell.display)+'</td>';
+      }).join('');
+      return '' +
+        '<tr>' +
+          '<td><span class="badge '+sectorBadgeClass+'">'+escapeHtml(r.sector)+'</span><span class="sum-hosp">'+r.count+' hospitals</span></td>' +
+          tierCells +
+        '</tr>';
+    }).join('');
+  }
+
+  var state = { q:'', sector:'All', sortKey:'sector', sortDir:1 };
+
+  function renderStats(){
+    var hospitals = DATA.hospitals.length;
+    var verified = DATA.hospitals.filter(function(h){return h.data_status==='ok';}).length;
+    var pub = DATA.hospitals.filter(function(h){return h.sector==='Public';}).length;
+    var priv = DATA.hospitals.filter(function(h){return h.sector==='Private';}).length;
+    var stats = [
+      {n: hospitals, l: 'Hospitals tracked'},
+      {n: verified, l: 'Verified'},
+      {n: pub, l: 'Public / restructured'},
+      {n: priv, l: 'Private'}
+    ];
+    document.getElementById('statStrip').innerHTML = stats.map(function(s){
+      return '<div class="stat"><div class="n num">'+s.n+'</div><div class="l">'+s.l+'</div></div>';
+    }).join('');
+  }
+
+  function renderChips(){
+    var sectors = ['All', 'Public', 'Private'];
+    var el = document.getElementById('sectorChips');
+    el.innerHTML = sectors.map(function(s){
+      return '<button class="chip" data-sector="'+s+'" aria-pressed="'+(state.sector===s)+'">'+s+'</button>';
+    }).join('');
+    el.querySelectorAll('.chip').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        state.sector = btn.getAttribute('data-sector');
+        renderChips();
+        renderTable();
+      });
+    });
+  }
+
+  function renderHead(){
+    var headRow = document.getElementById('headRow');
+    var cols = [
+      {key:'name', label:'Hospital', cls:'hospital-col'},
+      {key:'sector', label:'Sector'},
+      {key:'group', label:'Group'}
+    ].concat(TIERS.map(function(t){ return {key:t.key, label:t.label, tier:true}; }))
+     .concat([
+      {key:'status', label:'Status'},
+      {key:'retrieved', label:'Retrieved'},
+      {key:'source', label:'Source', noSort:true}
+    ]);
+    headRow.innerHTML = cols.map(function(c){
+      var cls = (c.cls||'') + (c.tier ? ' tier-col' : '');
+      var sortAttr = (!c.noSort && state.sortKey === c.key) ? ' aria-sort="'+(state.sortDir===1?'ascending':'descending')+'"' : '';
+      return '<th data-key="'+c.key+'" class="'+cls+'"'+sortAttr+'>'+escapeHtml(c.label)+(c.noSort?'':' <span class="arrow">↕</span>')+'</th>';
+    }).join('');
+    headRow.querySelectorAll('th[data-key]').forEach(function(th){
+      var key = th.getAttribute('data-key');
+      if(key === 'source') return;
+      th.onclick = function(){
+        if(state.sortKey === key){ state.sortDir *= -1; }
+        else { state.sortKey = key; state.sortDir = 1; }
+        headRow.querySelectorAll('th').forEach(function(x){ x.removeAttribute('aria-sort'); });
+        th.setAttribute('aria-sort', state.sortDir === 1 ? 'ascending' : 'descending');
+        renderTable();
+      };
+    });
+  }
+
+  function renderTable(){
+    var q = state.q.trim().toLowerCase();
+    var list = rows.filter(function(r){
+      if(state.sector !== 'All' && r.sector !== state.sector) return false;
+      if(!q) return true;
+      var hay = [r.name, r.group, r.sector].join(' ').toLowerCase();
+      return hay.indexOf(q) !== -1;
+    });
+
+    list.sort(function(a,b){
+      var k = state.sortKey, dir = state.sortDir, cmp;
+      var tierKeys = TIERS.map(function(t){return t.key;});
+      if(tierKeys.indexOf(k) !== -1){
+        var ta = a.tiers[k], tb = b.tiers[k];
+        var ra = ta ? ta.rate : null, rb = tb ? tb.rate : null;
+        var hasA = ta !== null, hasB = tb !== null;
+        if(!hasA && !hasB) return a.name.localeCompare(b.name);
+        if(!hasA) return 1;
+        if(!hasB) return -1;
+        if(ra === null && rb === null) return a.name.localeCompare(b.name);
+        if(ra === null) return 1;
+        if(rb === null) return -1;
+        cmp = (ra - rb) * dir;
+        return cmp === 0 ? a.name.localeCompare(b.name) : cmp;
+      }
+      if(k === 'retrieved'){ cmp = String(a.retrieved||'').localeCompare(String(b.retrieved||'')); }
+      else if(k === 'status'){ cmp = String(a.status).localeCompare(String(b.status)); }
+      else if(k === 'group'){ cmp = a.group.localeCompare(b.group); }
+      else if(k === 'sector'){ cmp = sectorRank(a.sector) - sectorRank(b.sector); }
+      else { cmp = a.name.localeCompare(b.name); }
+      cmp = cmp * dir;
+      if(cmp !== 0) return cmp;
+      // tie-break: always keep Public before Private, then alphabetical by name
+      var sc = sectorRank(a.sector) - sectorRank(b.sector);
+      if(sc !== 0) return sc;
+      return a.name.localeCompare(b.name);
+    });
+
+    var tbody = document.getElementById('tbody');
+    var emptyEl = document.getElementById('emptyState');
+    document.getElementById('counts').textContent = list.length + ' of ' + rows.length + ' hospitals shown';
+
+    if(!list.length){
+      tbody.innerHTML = '';
+      emptyEl.hidden = false;
+      return;
+    }
+    emptyEl.hidden = true;
+
+    tbody.innerHTML = list.map(function(r){
+      var sectorBadgeClass = r.sector === 'Public' ? 'sector-public' : 'sector-private';
+      var sourceLink = r.source
+        ? '<a class="src-link" href="'+escapeHtml(r.source)+'" target="_blank" rel="noopener">Source ↗</a>'
+        : '<span class="muted src-link">No page found</span>';
+      var rowTitle = r.notes ? ' title="'+escapeHtml(r.notes)+'"' : '';
+      var tierCells = TIERS.map(function(t){
+        var cell = r.tiers[t.key];
+        if(!cell) return '<td class="tier-cell empty-cell">—</td>';
+        return '<td class="tier-cell" title="'+escapeHtml(cell.title)+'">'+escapeHtml(cell.display)+'</td>';
+      }).join('');
+      return '' +
+        '<tr class="'+(r.unavailable ? 'unavail-row' : '')+'"'+rowTitle+'>' +
+          '<td class="hospital hospital-col">'+ (r.source ? '<a href="'+escapeHtml(r.source)+'" target="_blank" rel="noopener">'+escapeHtml(r.name)+'</a>' : escapeHtml(r.name)) +'</td>' +
+          '<td><span class="badge '+sectorBadgeClass+'">'+escapeHtml(r.sector)+'</span></td>' +
+          '<td class="muted">'+escapeHtml(r.group)+'</td>' +
+          tierCells +
+          '<td><span class="status-dot '+statusClass(r.status)+'"><span class="dot"></span>'+statusLabel(r.status)+'</span></td>' +
+          '<td class="muted">'+fmtDate(r.retrieved)+'</td>' +
+          '<td>'+sourceLink+'</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  document.getElementById('q').addEventListener('input', function(e){
+    state.q = e.target.value;
+    renderTable();
+  });
+
+  document.getElementById('lastUpdated').textContent = fmtDate(DATA.last_updated);
+  document.getElementById('nextRefresh').textContent = fmtDate(DATA.next_refresh);
+
+  renderStats();
+  renderSummary();
+  renderChips();
+  renderHead();
+  renderTable();
+})();
+</script>
