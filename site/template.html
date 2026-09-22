@@ -212,10 +212,12 @@
     white-space:nowrap; display:inline-block;
   }
   .badge.sector-public{color:#1B5FA8; border-color:#C6D9EE; background:#E9F1FA}
-  :root:not([data-theme="light"]) .badge.sector-public,
-  :root[data-theme="dark"] .badge.sector-public{color:#8FC0F2; border-color:#254257; background:#132433}
   .badge.sector-private{color:#7A4EA8; border-color:#DED0EE; background:#F3ECFA}
-  :root:not([data-theme="light"]) .badge.sector-private,
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .badge.sector-public{color:#8FC0F2; border-color:#254257; background:#132433}
+    :root:not([data-theme="light"]) .badge.sector-private{color:#C9A6EC; border-color:#3A2C50; background:#231A33}
+  }
+  :root[data-theme="dark"] .badge.sector-public{color:#8FC0F2; border-color:#254257; background:#132433}
   :root[data-theme="dark"] .badge.sector-private{color:#C9A6EC; border-color:#3A2C50; background:#231A33}
 
   .status-dot{
