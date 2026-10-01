@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-09-22T15:05:19.811265",
+  "run_at": "2026-10-01T20:17:53.817878",
   "results": [
     {
       "id": "sgh",
@@ -12,7 +12,7 @@
       "id": "cgh",
       "name": "Changi General Hospital (CGH)",
       "status": "ok",
-      "changed": true,
+      "changed": false,
       "note": "Standard Ward rates for Singapore Citizens shown; PR/foreigner rates differ. B2 & C based on maximum subsidy."
     },
     {
@@ -26,7 +26,7 @@
       "id": "kkh",
       "name": "KK Women's and Children's Hospital (KKH)",
       "status": "ok",
-      "changed": true,
+      "changed": false,
       "note": "Women's inpatient ward fees, Singapore Citizen rates. A separate Children's ward table exists at /inpatient-charges/children (A1 $765.50, B1 $402.32, B2 $79.80, C $45.60) — see that page for paediatric rates."
     },
     {
@@ -62,21 +62,21 @@
       "name": "National University Hospital (NUH)",
       "status": "stale",
       "changed": true,
-      "note": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review) rather than guessed. General Ward rates shown; HDU and ICU rates on the same page run as ranges (e.g. A1 HDU $971.30–$1,050.32, A1 ICU $1,108.53–$1,573.42) — see source for those and for PR/foreigner variants. [Auto-check: fetch failed this run; last confirmed 2026-09-22.]"
+      "note": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review) rather than guessed. General Ward rates shown; HDU and ICU rates on the same page run as ranges (e.g. A1 HDU $971.30–$1,050.32, A1 ICU $1,108.53–$1,573.42) — see source for those and for PR/foreigner variants. [Auto-check: fetch failed this run; last confirmed 2026-09-22.] [Auto-check: fetch failed this run; last confirmed 2026-09-22.]"
     },
     {
       "id": "ntfgh",
       "name": "Ng Teng Fong General Hospital (NTFGH)",
       "status": "stale",
       "changed": true,
-      "note": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review). Acute Ward rates shown; the same image also lists ICU (A $1,503 / B1 $1,202 / B2 $232 / C $179) and HDU (A $1,028 / B1 $823 / B2 $159 / C $105) rates. Effective 1 Sep 2026. [Auto-check: fetch failed this run; last confirmed 2026-09-22.]"
+      "note": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review). Acute Ward rates shown; the same image also lists ICU (A $1,503 / B1 $1,202 / B2 $232 / C $179) and HDU (A $1,028 / B1 $823 / B2 $159 / C $105) rates. Effective 1 Sep 2026. [Auto-check: fetch failed this run; last confirmed 2026-09-22.] [Auto-check: fetch failed this run; last confirmed 2026-09-22.]"
     },
     {
       "id": "ah",
       "name": "Alexandra Hospital (AH)",
       "status": "stale",
       "changed": true,
-      "note": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review). General Ward rates shown; the same image also lists HDU (A1 $1,027.54 / B1 $821.97 / B2 $155 / C $155) and ICU (A1 $1,367.41 / B1 $1,093.92 / B2 $224.70 / C $224.70) rates. Effective Sep 2026. [Auto-check: fetch failed this run; last confirmed 2026-09-22.]"
+      "note": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review). General Ward rates shown; the same image also lists HDU (A1 $1,027.54 / B1 $821.97 / B2 $155 / C $155) and ICU (A1 $1,367.41 / B1 $1,093.92 / B2 $224.70 / C $224.70) rates. Effective Sep 2026. [Auto-check: fetch failed this run; last confirmed 2026-09-22.] [Auto-check: fetch failed this run; last confirmed 2026-09-22.]"
     },
     {
       "id": "mount_elizabeth",
@@ -110,7 +110,7 @@
       "id": "raffles_hospital",
       "name": "Raffles Hospital",
       "status": "ok",
-      "changed": true,
+      "changed": false,
       "note": "Room charges only, inclusive of GST. Day surgery and nursery rates published separately on the same page."
     },
     {
