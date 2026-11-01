@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-10-01",
-  "next_refresh": "2026-11-01",
+  "last_updated": "2026-11-01",
+  "next_refresh": "2026-12-01",
   "hospitals": [
     {
       "id": "sgh",
@@ -8,7 +8,7 @@
       "sector": "Public",
       "group": "SingHealth",
       "source_url": "https://www.sgh.com.sg/ward-stay/preparing-for-admission/types-of-wards",
-      "retrieved_date": "2026-10-01",
+      "retrieved_date": "2026-11-01",
       "data_status": "ok",
       "notes": "Rates shown are 'from' figures and apply to Singapore Citizens; PR/foreigner rates differ. B2 & C rates assume maximum government subsidy.",
       "wards": [
@@ -68,7 +68,7 @@
       "sector": "Public",
       "group": "SingHealth",
       "source_url": "https://www.cgh.com.sg/ward-stay/inpatient-charges",
-      "retrieved_date": "2026-10-01",
+      "retrieved_date": "2026-11-01",
       "data_status": "ok",
       "notes": "Standard Ward rates for Singapore Citizens shown; PR/foreigner rates differ. B2 & C based on maximum subsidy.",
       "wards": [
@@ -104,7 +104,7 @@
       "sector": "Public",
       "group": "SingHealth",
       "source_url": "https://www.skh.com.sg/patient-services/e-services/bills-and-payment/inpatient-charges",
-      "retrieved_date": "2026-10-01",
+      "retrieved_date": "2026-11-01",
       "data_status": "ok",
       "notes": "Acute Ward, Singapore Citizen rates; effective 1 Oct 2025. Excludes daily treatment fee, medication, labs, imaging.",
       "wards": [
@@ -146,7 +146,7 @@
       "sector": "Public",
       "group": "SingHealth",
       "source_url": "https://www.kkh.com.sg/ward-stay/preparing-for-admission/inpatient-charges/women",
-      "retrieved_date": "2026-10-01",
+      "retrieved_date": "2026-11-01",
       "data_status": "ok",
       "notes": "Women's inpatient ward fees, Singapore Citizen rates. A separate Children's ward table exists at /inpatient-charges/children (A1 $765.50, B1 $402.32, B2 $79.80, C $45.60) — see that page for paediatric rates.",
       "wards": [
@@ -325,7 +325,7 @@
       "source_url": "https://www.nuh.com.sg/care-at-nuh/fees-and-charges",
       "retrieved_date": "2026-09-22",
       "data_status": "stale",
-      "notes": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review) rather than guessed. General Ward rates shown; HDU and ICU rates on the same page run as ranges (e.g. A1 HDU $971.30–$1,050.32, A1 ICU $1,108.53–$1,573.42) — see source for those and for PR/foreigner variants. [Auto-check: fetch failed this run; last confirmed 2026-09-22.] [Auto-check: fetch failed this run; last confirmed 2026-09-22.]",
+      "notes": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review) rather than guessed. General Ward rates shown; HDU and ICU rates on the same page run as ranges (e.g. A1 HDU $971.30–$1,050.32, A1 ICU $1,108.53–$1,573.42) — see source for those and for PR/foreigner variants. [Auto-check: fetch failed this run; last confirmed 2026-09-22.] [Auto-check: fetch failed this run; last confirmed 2026-09-22.] [Auto-check: fetch failed this run; last confirmed 2026-09-22.]",
       "wards": [
         {
           "class": "C (8-bed, subsidised)",
@@ -373,7 +373,7 @@
       "source_url": "https://www.ntfgh.com.sg/for-patients-and-visitors/charges-and-payment",
       "retrieved_date": "2026-09-22",
       "data_status": "stale",
-      "notes": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review). Acute Ward rates shown; the same image also lists ICU (A $1,503 / B1 $1,202 / B2 $232 / C $179) and HDU (A $1,028 / B1 $823 / B2 $159 / C $105) rates. Effective 1 Sep 2026. [Auto-check: fetch failed this run; last confirmed 2026-09-22.] [Auto-check: fetch failed this run; last confirmed 2026-09-22.]",
+      "notes": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review). Acute Ward rates shown; the same image also lists ICU (A $1,503 / B1 $1,202 / B2 $232 / C $179) and HDU (A $1,028 / B1 $823 / B2 $159 / C $105) rates. Effective 1 Sep 2026. [Auto-check: fetch failed this run; last confirmed 2026-09-22.] [Auto-check: fetch failed this run; last confirmed 2026-09-22.] [Auto-check: fetch failed this run; last confirmed 2026-09-22.]",
       "wards": [
         {
           "class": "C",
@@ -414,7 +414,7 @@
       "source_url": "https://www.ah.com.sg/for-patients-and-visitors/charges-and-payment",
       "retrieved_date": "2026-09-22",
       "data_status": "stale",
-      "notes": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review). General Ward rates shown; the same image also lists HDU (A1 $1,027.54 / B1 $821.97 / B2 $155 / C $155) and ICU (A1 $1,367.41 / B1 $1,093.92 / B2 $224.70 / C $224.70) rates. Effective Sep 2026. [Auto-check: fetch failed this run; last confirmed 2026-09-22.] [Auto-check: fetch failed this run; last confirmed 2026-09-22.]",
+      "notes": "Rates are published as an embedded image on the source page, not as text; figures below were read directly off that image (screenshot review). General Ward rates shown; the same image also lists HDU (A1 $1,027.54 / B1 $821.97 / B2 $155 / C $155) and ICU (A1 $1,367.41 / B1 $1,093.92 / B2 $224.70 / C $224.70) rates. Effective Sep 2026. [Auto-check: fetch failed this run; last confirmed 2026-09-22.] [Auto-check: fetch failed this run; last confirmed 2026-09-22.] [Auto-check: fetch failed this run; last confirmed 2026-09-22.]",
       "wards": [
         {
           "class": "C (5-bed open cubicle, subsidised)",
@@ -634,7 +634,7 @@
       "sector": "Private",
       "group": "Raffles Medical Group",
       "source_url": "https://www.rafflesmedicalgroup.com/services/hospital/patients-visitors/what-will-it-cost/room-rates/",
-      "retrieved_date": "2026-10-01",
+      "retrieved_date": "2026-11-01",
       "data_status": "ok",
       "notes": "Room charges only, inclusive of GST. Day surgery and nursery rates published separately on the same page.",
       "wards": [
